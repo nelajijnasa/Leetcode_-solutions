@@ -1,0 +1,20 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] prefSum=new int[nums.length];
+        int[] suffixSum=new int[nums.length];
+        int[] ans=new int[nums.length];
+        prefSum[0]=nums[0]; suffixSum[nums.length-1]=nums[nums.length-1];
+        for(int i=1;i<nums.length;i++){
+            prefSum[i]=prefSum[i-1]*nums[i];
+        }
+        for(int i=nums.length-2;i>=0;i--){
+            suffixSum[i]=suffixSum[i+1]*nums[i];
+        }
+
+        ans[0]=suffixSum[1]; ans[nums.length-1]=prefSum[nums.length-2];
+        for(int i=1;i<nums.length-1;i++){
+            ans[i]=prefSum[i-1]*suffixSum[i+1];
+        }
+        return ans;
+    }
+}
