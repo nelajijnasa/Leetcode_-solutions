@@ -1,0 +1,39 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int starting= findElement(nums,target,0,nums.length-1);
+        int ending = findElementR(nums,target,0,nums.length-1);
+        System.out.println(starting);
+        return new int[]{starting,ending};
+    }
+    int findElement(int[] nums,int target,int start,int end){
+        if(start>end) return -1;
+        int mid=(start+end)/2;
+        if(nums[mid]==target && start==end) return start;
+        else if(nums[mid]==target){
+            return findElement(nums,target,start,mid);
+        }
+        else if(nums[mid]<target){
+            return findElement(nums,target,mid+1,end);
+        }
+        else{
+            return findElement(nums,target,start,mid-1);
+        }
+    }
+    int findElementR(int[] nums,int target,int start,int end){
+        if(start>end) return -1;
+        int mid=(start+end)/2;
+        System.out.println(start+" "+end+" "+mid);
+        if(nums[mid]==target && (start==end)) return start;
+        else if(mid==start && nums[end]==target) return end;
+        else if(mid==start  && nums[start]==target) return start;
+        else if(nums[mid]==target){
+            return findElementR(nums,target,mid,end);
+        }
+        else if(nums[mid]<target){
+            return findElementR(nums,target,mid+1,end);
+        }
+        else{
+            return findElementR(nums,target,start,mid-1);
+        }
+    }
+}
